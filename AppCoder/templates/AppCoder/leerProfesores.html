@@ -1,0 +1,27 @@
+{% extends "AppCoder/padre.html" %}
+
+
+{% block contenidoQueCambia %}
+Aquí va la lista de profesores!
+
+
+{% if lista_profesores %}
+<ul>
+    {% for profesor in lista_profesores %}
+    <li>{{ profesor.nombre }} ({{ profesor.email }})</li>
+    <div>
+        <form action="{% url 'AppCoder:elimina-profesor' profesor.id %}" method="POST">{% csrf_token %}
+            <button type="submit">Eliminar</button>
+        </form>
+        <button>
+            <a href="{% url 'AppCoder:editar-profesor' profesor.id %}">Editar</a>
+        </button>
+    </div>
+    {% endfor %}
+</ul>
+{% else %}
+<h1>No existen profesores en la BBDD</h1>
+{% endif %}
+
+
+{% endblock %}
